@@ -1,4 +1,52 @@
 # Expense Tracker Application Backend with Spring Boot
+## Project Overview
+This project is designed to demonstrate my understanding of backend development, DevOps, and cloud computing by building a backend web API using Spring Boot and Java. 
+It follows best practices for software development, CI/CD automation, and cloud deployment.
+
+### Key Features:
+- Backend API Development: Built with Spring Boot and Java, following industry best practices.
+- Continuous Integration (CI): Automated unit and integration tests using GitHub Actions.
+- Continuous Deployment (CD): The application is containerized and pushed to Amazon ECR upon successful tests.
+- Infrastructure as Code (IaC): A separate repository contains Terraform configurations for deploying the application to AWS.
+
+By working on this project, I aim to strengthen my expertise in backend engineering, cloud infrastructure, and DevOps automation.
+
+## Application Overview
+This backend API follows RESTful principles and is built using Spring Boot and Java, with Gradle as the build tool. 
+It manages users and their expenses, enforcing a one-to-many relationship where each user can have multiple expenses.
+
+### Key Concepts:
+Gradle for Build & Dependency Management:
+- The project uses Gradle to manage dependencies, build automation, and testing workflows efficiently.
+
+Stateless Authentication:
+- Authentication is handled using JWT tokens. 
+When a user logs in, a JWT token is generated and must be included in subsequent API requests as a Bearer token.
+
+Authorization & Security:
+- The token contains the username and is validated before processing requests.
+Users can only access their own expenses—attempting to access another user's data is forbidden.
+
+Entity Relationships:
+- One-to-Many: A User can have multiple Expenses.
+The API ensures proper ownership validation before allowing any expense-related actions.
+This design ensures security, scalability, and maintainability, following best practices in backend development, authentication, and build automation.
+
+### Setting up PostGreSQL database locally in a docker container
+Most of the development and testing was conducted locally, below are instructions to set up a PostGreSQl database for local development and testing:
+
+1. Pull docker image:
+   ```docker pull postgres```
+
+2. Create and run PostGreSQL container locally:
+   ```docker run --name my-postgres -e POSTGRES_USER=yourusername -e POSTGRES_PASSWORD=yourpassword -e POSTGRES_DB=yourdatabase -p 5432:5432 -d postgres```
+
+3. Verify the Container is Running:
+   ```docker ps```
+
+4. Connect to PostGreSQL:
+   ```psql -h localhost -U yourusername -d yourdatabase```
+
 
 ## CI Pipeline
 ### Workflow Overview
@@ -25,17 +73,3 @@ Steps:
 4. Run integration tests.
 
 
-## Setting up PostGreSQL database locally in a docker container
-Below are instructions to set up a PostGreSQl database for local development and testing:
-
-1. Pull docker image:
-   ```docker pull postgres```
-
-2. Create and run PostGreSQL container locally:
-   ```docker run --name my-postgres -e POSTGRES_USER=yourusername -e POSTGRES_PASSWORD=yourpassword -e POSTGRES_DB=yourdatabase -p 5432:5432 -d postgres```
-
-3. Verify the Container is Running:
-   ```docker ps```
-
-4. Connect to PostGreSQL:
-   ```psql -h localhost -U yourusername -d yourdatabase```
