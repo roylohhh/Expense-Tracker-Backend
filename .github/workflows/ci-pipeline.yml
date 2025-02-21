@@ -36,7 +36,7 @@ jobs:
   integration-testing:
     needs: [unit-testing]
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop' || github.base_ref == 'develop'
+    if: github.ref == 'refs/heads/develop' || github.base_ref == 'develop' || startsWith(github.ref, 'refs/heads/release') || startsWith(github.base_ref, 'release/')
     services:
       postgres:
         image: postgres:latest
