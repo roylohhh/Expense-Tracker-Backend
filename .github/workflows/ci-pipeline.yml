@@ -31,9 +31,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build and run tests
-        run: ./gradlew test --tests "com.tutorialseu.expensetrackerbackend.service.unit.*
+        run: ./gradlew test --tests 'com.tutorialseu.expensetrackerbackend.service.unit.*'
 
   integration-testing:
+    needs: [unit-testing]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop' || github.base_ref == 'develop'
     services:
@@ -66,4 +67,4 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run integration tests
-        run: ./gradlew test --tests "com.tutorialseu.expensetrackerbackend.service.integration.*"
+        run: ./gradlew test --tests 'com.tutorialseu.expensetrackerbackend.service.integration.*'
