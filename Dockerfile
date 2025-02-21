@@ -1,10 +1,9 @@
-# Use a base image with Java
-FROM amazoncorretto:17 AS build
+# Use Gradle base image with Java 23
+FROM gradle:8.12.1-jdk23 AS build
 
-# Set working directory
 WORKDIR /app
 
-# Copy only necessary files first to leverage Docker caching
+# Copy necessary Gradle files
 COPY gradlew gradlew
 COPY gradle gradle
 COPY build.gradle settings.gradle ./
@@ -12,23 +11,26 @@ COPY build.gradle settings.gradle ./
 # Grant execution permission to Gradlew
 RUN chmod +x gradlew
 
-# Download dependencies to cache layer
+# Set the Gradle home environment variable (optional)
+ENV GRADLE_USER_HOME=/app/.gradle
+
+# Download dependencies (optional caching step)
 RUN ./gradlew dependencies --no-daemon
 
-# Copy the rest of the application files
+# Copy the full project
 COPY . .
 
 # Build the application
 RUN ./gradlew build -x test
 
-# Use a minimal JDK runtime
-FROM amazoncorretto:17 AS runtime
+# Use a smaller Java 23 runtime image
+FROM eclipse-temurin:23 AS runtime
 WORKDIR /app
 
-# Copy the built JAR file from the build stage
+# Copy the JAR from the previous stage
 COPY --from=build /app/build/libs/*.jar app.jar
 
-# Expose application port
+# Expose the application port
 EXPOSE 8080
 
 # Run the application
