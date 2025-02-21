@@ -7,7 +7,7 @@ It follows best practices for software development, CI/CD automation, and cloud 
 - Backend API Development: Built with Spring Boot and Java, following industry best practices.
 - Continuous Integration (CI): Automated unit and integration tests using GitHub Actions.
 - Continuous Deployment (CD): The application is containerized and pushed to Amazon ECR upon successful tests.
-- Infrastructure as Code (IaC): A separate repository contains Terraform configurations for deploying the application to AWS.
+- Infrastructure as Code (IaC): A separate repository contains Terraform configurations for deploying the application to AWS: https://github.com/roylohhh/Expense-Tracker-Infra
 
 By working on this project, I aim to strengthen my expertise in backend engineering, cloud infrastructure, and DevOps automation.
 
