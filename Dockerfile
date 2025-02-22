@@ -30,8 +30,11 @@ WORKDIR /app
 # Copy the JAR from the previous stage
 COPY --from=build /app/build/libs/*.jar app.jar
 
+# Copy the .env file (optional, useful for local development)
+COPY .env .env
+
 # Expose the application port
 EXPOSE 8080
 
-# Run the application
-CMD ["java", "-jar", "app.jar"]
+# Load environment variables & run the application
+CMD export $(grep -v '^#' .env | xargs) && java -jar app.jar
