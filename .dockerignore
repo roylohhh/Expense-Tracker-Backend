@@ -1,0 +1,22 @@
+# Ignore build artifacts
+target/
+build/
+
+# Ignore Git repository files
+.git/
+.gitignore
+
+# Ignore IDE files (IntelliJ, VS Code)
+.idea/
+.vscode/
+
+# Ignore dependency cache (if using Gradle)
+.gradle/
+
+# Ignore OS/system files
+.DS_Store
+Thumbs.db
+
+# Ignore logs and temp files
+logs/
+*.log
