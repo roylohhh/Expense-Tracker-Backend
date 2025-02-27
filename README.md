@@ -48,11 +48,15 @@ Most of the development and testing was conducted locally, below are instruction
    ```psql -h localhost -U yourusername -d yourdatabase```
 
 
-## CI Pipeline
+## CI-CD Pipeline
 ### Workflow Overview
-The pipeline is implemented using GitHub Actions and automates unit testing and integration testing of the application.
+The pipeline is implemented using GitHub Actions and consists of two parts:
+- **Continuous Integration:** Automates testing(unit and integration) of the application. 
+- **Continuous Delivery:** Upon successful completion of testing, the pipeline will dockerize the application 
+and push to Amazon Elastic Container Registry.
 The pipeline runs automatically on push and pull requests to specific branches. The pipeline consists of two jobs:
 
+### Continuous Integration
 #### Unit Testing
 Runs on every push and pull request to `main`, `develop`, `release/*`, and `feature/*` branches.
 
@@ -72,4 +76,19 @@ Steps:
 3. Start a PostGreSQl database.
 4. Run integration tests.
 
+### Continuous Delivery
+This section outlines the steps involved in the continuous delivery (CD) pipeline for building and pushing a Docker image to Amazon Elastic Container Registry (ECR) using GitHub Actions.
 
+Steps:
+
+1. **Retrieve AWS Credentials:**
+AWS credentials stored in GitHub Secrets are accessed to authenticate with AWS services.
+
+2. **Authenticate with Amazon ECR:**
+The pipeline logs into Amazon ECR using the retrieved AWS credentials to enable pushing Docker images.
+
+3. **Build and Tag the Docker Image:**
+A Docker image is built using the application source code and tagged appropriately for the ECR repository.
+
+4. **Push the Docker Image to Amazon ECR:**
+The tagged image is pushed to the specified ECR repository for deployment.
